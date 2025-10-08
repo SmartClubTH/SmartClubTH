@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Website</title>
+  <style>
+    :root{
+      --blue:#5166ae;   /* overlay */
+      --pink:#dea6cb;   /* optional accents */
+      --lb:#c3dff4;
+      --cream:#faf5c9;
+      --glow: rgba(255,255,255,.6);
+      --glow-strong: rgba(255,255,255,.9);
+    }
+
+    /* page background */
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      text-align:center;
+      background: url('background.png') center/cover fixed no-repeat;
+      position:relative;
+      overflow-x:hidden;
+    }
+        /* transparent deep-blue overlay */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background: rgba(81,102,174,.70);
+      z-index:0;
+    }
+
+    /* vertical stack */
+    .stack{
+      position:relative;
+      z-index:1;
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      padding:40px 16px;
+    }
+
+    /* universal button style (images) */
+    .btn-img{
+      width:260px;
+      height:160px;
+      object-fit:cover;
+      border-radius:14px;
+      box-shadow:0 0 16px var(--glow);
+      transition: transform .28s ease, box-shadow .28s ease, filter .28s ease;
+      animation: float 3s ease-in-out infinite;
+      cursor:pointer;
+      display:block;
+      user-select:none;
+      -webkit-user-drag: none;
+      backdrop-filter: blur(0px);
+    }
+    .btn-img:hover{
+      transform: scale(1.08);
+      box-shadow:0 0 26px var(--glow-strong);
+      filter:saturate(1.05);
+    }
+
+    @keyframes float{
+      0%{ transform: translateY(0) }
+      50%{ transform: translateY(-10px) }
+      100%{ transform: translateY(0) }
+    }
+
+    /* “Social Media” toggle button uses same visual, but wrapped in a button for a11y */
+    .btn{
+      border:0;
+      padding:0;
+      background:transparent;
+    }
+
+    /* hidden social list (smooth reveal) */
+    .social-wrap{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+
+      /* animation container */
+      overflow:hidden;
+      max-height:0;
+      opacity:0;
+      transform: translateY(-6px);
+      transition: max-height .45s ease, opacity .45s ease, transform .45s ease;
+    }
+    .social-wrap.open{
+      max-height:700px;       /* big enough for 3+ items */
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* small note (optional) */
+    .hint{color:#fff9; font-size:12px; margin-top:6px}
+  </style>
+</head>
+<body>
+
+  <main class="stack">
+    <!-- main buttons (PNG) -->
+    <a href="smart.html"><img class="btn-img" src="smart.png" alt="Get to know SMART"></a>
+    <a href="stage.html"><img class="btn-img" src="stage.png" alt="Stage"></a>
+    <a href="diary.html"><img class="btn-img" src="diary.png" alt="Diary"></a>
+    <a href="social.html"><img class="btn-img" src="social.png" alt="Social"></a>
+
+    </div>
+  </main>
+
+  <script>
+    const toggle = document.getElementById('socialToggle');
+    const wrap = document.getElementById('socialLinks');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = wrap.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  </script>
+
+</body>
+</html>
